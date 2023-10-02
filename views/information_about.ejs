@@ -1,0 +1,53 @@
+<%- include("_header") -%>
+
+<% 
+
+let name = "";
+let abstract = "";
+let otherData = "";
+
+if (typeof mainObject !== 'undefined') {
+  name = mainObject.name;
+  abstract = mainObject.abstract;
+  otherData = mainObject.otherData;
+  if (typeof name === 'undefined') {
+    name = "Empty name query";
+  }
+  if (typeof abstract === 'undefined') {
+    abstract = "Empty abstract query";
+  }
+  if (typeof otherData === 'undefined') {
+    otherData = "Empty other data query";  
+  }
+} %>
+
+<h1>Information about <%= name %></h1>
+
+<div class="row">
+  <h3>Abstract</h3>
+  <p><%= abstract %></p>
+  
+<% if (otherData != "") { %>
+  <p><%= otherDataLabel %>: <%= otherData %></p>
+<% } %>
+  
+<% if (typeof relatedObjects === 'undefined') { %>
+    <p>Empty query.</p>
+<% } else if (relatedObjects.length > 0) { %>
+    <h2>Related links: <%= relatedLinksLabel %></h2>
+    <ul>
+	  <% for (let i = 0; i < relatedObjects.length; i++) { 
+	       if (relatedObjects[i].indexOf("Category:") == -1) {
+	  %>
+		<!-- does not replace all _ -->
+        <li><a class="link-primary" href="/about/<%= relatedObjects[i].replace("http://dbpedia.org/resource/", ""); %>"><%= relatedObjects[i].replace("http://dbpedia.org/resource/", "").replace("_", " "); %></a></li>
+      <% 
+	      }
+	    } 
+	  %>
+	</ul>  
+<% } %>
+  
+</div>
+
+<%- include("_footer") -%>
