@@ -29,12 +29,22 @@ app.get("/about/:r", (req, res) => {
 		PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
 		SELECT ?o WHERE { ${resource} rdfs:label ?o.
 		FILTER ( LANG ( ?o ) = 'en' )} LIMIT 1`;
-    // your own query for abstract here, fetch one object if there are more than one
-	let q2 = ``;
+	// your own query for abstract here, fetch one object if there are more than one
+	let q2 = `
+		PREFIX dbpedia: <http://dbpedia.org/resource/>
+		PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
+		SELECT ?o WHERE { ${resource} dbpedia-owl:abstract ?o.
+		FILTER ( LANG ( ?o ) = 'en' )} LIMIT 1`;
 	// your own query here, fetch one piece of data (LIMIT 1)
-	let q3 = ``;
+	let q3 = `
+		PREFIX dbpedia: <http://dbpedia.org/resource/>
+		PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
+		SELECT ?o WHERE { ${resource} dbpedia-owl:birthDate ?o } LIMIT 1`;
 	// your own query here, fetch a list of objects to display as links
-	let q4 = ``;
+	let q4 = `
+		PREFIX dbpedia: <http://dbpedia.org/resource/>
+		PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
+		SELECT ?o WHERE { ${resource} dbpedia-owl:wikiPageWikiLink ?o } LIMIT 10`;
 	// add a relevant heading for the query to headings
 	let returned_main_data = {"name": "", "abstract": "", "otherData": ""};
 	let returned_related_links = [];
