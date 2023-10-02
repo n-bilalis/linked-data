@@ -1,7 +1,7 @@
 const port = 3000,
-    express = require("express"),
-    app = express(),
-    httpStatus = require("http-status-codes");
+	express = require("express"),
+	app = express(),
+	httpStatus = require("http-status-codes");
 
 const path = require("path");
 
@@ -41,7 +41,7 @@ app.get("/about/:r", (req, res) => {
 	let other_data_label = "Birth date";
 	let related_links_label = "Wikipagelinks";
 	// call the function with the first query
-    dbp_query_o(q1, dps)
+	dbp_query_o(q1, dps)
 		.then( data => {
 			// the results of the query will be stored in data, then placed in returned_main_data
 			returned_main_data.name = data;
@@ -75,20 +75,20 @@ app.get("/about/:r", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-    res.render("about");
+	res.render("about");
 });
 
 app.get("/concepts", (req, res) => {
-    res.render("concepts");
+	res.render("concepts");
 });
 
 app.get("/linked_data", (req, res) => {
-    res.render("linked_data");
+	res.render("linked_data");
 });
 
 // only for objects
 function dbp_query_o(q, dps, args) {
-    return new Promise((resolve, reject) => {
+	return new Promise((resolve, reject) => {
 		dps.client()
 			.query(q)
 			.timeout(15000)
@@ -104,9 +104,9 @@ function dbp_query_o(q, dps, args) {
 		.catch(function(err) {
 			console.log("Error with query: " + q);
 			console.log("Error message: " + err);
-            return resolve(["error, see log (Unexpected token V in JSON at position 0 means that there is a query related error)"]);
+			return resolve(["error, see log (Unexpected token V in JSON at position 0 means that there is a query related error)"]);
 		});
-    });
+	});
 }
 
 // this function adds backslashes in front of special characters and then adds the namespace dbpedia
